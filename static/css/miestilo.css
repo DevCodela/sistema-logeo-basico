@@ -1,0 +1,15 @@
+* { margin: 0; padding: 0;}
+menu { margin: 0; padding: 0; margin-left: 10px;}
+menu ul li { display: inline-block; }
+a {
+	text-decoration: none;
+}
+
+.nombre{
+	position: absolute;
+	top: 15px;
+	bottom: 0;
+	right: 0;
+	vertical-align: bottom;
+	left: 90%;
+}
