@@ -1,13 +1,13 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView, View
 from django.http import HttpResponseRedirect 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 
-def mylogin(request):
-	if request.method == 'POST':
+class MyLogin(View):
+
+    def post(self, request, *args, **kwargs):
 		username = request.POST['username']
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
@@ -21,23 +21,23 @@ def mylogin(request):
 			return render(request,'principal/nousuario.html')
 
 
-@login_required(login_url='/mylogin')
-def cerrar(request):
-	logout(request)
-	return HttpResponseRedirect('/')
+class Cerrar(View):	
 
-@login_required(login_url='/mylogin')
-def privado(request):
-	usuario=request.user
-	return render(request,'principal/privado.html',{'usuario':usuario})
+	def get(self, request, *args, **kwargs):
+		logout(request)
+		return HttpResponseRedirect('/')
 
-def perfil(request, username):
-	usuario = request.user
-	usuario_no_logueado = User.objects.get(username=username)
-	if usuario == User.objects.get(username=username):
-		return render(request,'principal/perfil.html', {'usuario':usuario})
-	else:
-		return render(request,'principal/perfil_no_logueado.html', {'usuario':usuario_no_logueado}) 
+class Privado(View):
+
+	def get(self, request, *args, **kwargs):
+		usuario=request.user
+		return render(request,'principal/privado.html',{'usuario':usuario})
+
+
+class UsuarioDetailView(DetailView):
+	model = User
+	context_object_name = 'usuario'
+	template_name = "principal/privado.html"
 
 
 class IndexAboutView(TemplateView):

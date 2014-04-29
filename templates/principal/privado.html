@@ -4,5 +4,5 @@
 
 {% block contenido %}
 <p class="bg-success">Bienvenido {{usuario.username|upper}} al curso profesional de Django 1.6</p>
-<p><a class="btn btn-primary btn-large", href="/cerrar"> Cerrar</a></p>
+<p><a class="btn btn-primary btn-large", href="{% url 'cerrar' %}"> Cerrar</a></p>
 {% endblock %}

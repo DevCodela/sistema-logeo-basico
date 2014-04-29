@@ -45,11 +45,11 @@
           <menu class= "login">    
                 {% if user.is_authenticated %}
                 <ul class="nombre">
-                    <li><a id="nombre" href="/{{ user.username }}/">Hola {{user.username|capfirst}}</a></li>
-                    <li><a id="cerrar" href="/cerrar/">Cerrar &raquo;</a></li>
+                    <li><a id="nombre" href="{% url 'detalle_usuario' user.id %}">Hola {{user.username|capfirst}}</a></li>
+                    <li><a id="cerrar" href="{% url 'cerrar' %}">Cerrar &raquo;</a></li>
                 </ul>                        
                 {% else %}
-                         <form action='/login/' class="navbar-form navbar-right"  method='post'>
+                         <form action="{% url 'my_login' %}" class="navbar-form navbar-right"  method='post'>
                           
                           <div class="form-group">
                             {% csrf_token %}
@@ -63,6 +63,7 @@
                         </form>
                 {% endif %}
             </menu>  
+
 
         </div><!--/.navbar-collapse -->
       </div>
@@ -103,7 +104,8 @@
       <footer>
         <p>&copy; Company 2014</p>
       </footer>
-    </div> <!-- /container --><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    </div> 
+    <!-- /container --><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
 
         <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
